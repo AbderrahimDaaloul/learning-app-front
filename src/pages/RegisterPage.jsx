@@ -1,5 +1,4 @@
 import React from "react";
-import studyPerson from "../assets/studyPerson.jpg";
 import { Link } from "react-router-dom";
 
 const TUNISIA_STATES = [
