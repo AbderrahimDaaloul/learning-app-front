@@ -4,16 +4,61 @@ import CourseViewer from "../components/CourseViewer";
 import ExerciseViewer from "../components/ExerciseViewer";
 import PastExamsViewer from "../components/PastExamsViewer";
 import ProgressTracker from "../components/ProgressTracker";
-import Chatbot from "../components/Chatbot";
-// import DocumentChatPanel from "../components/DocumentChatPanel";
+import AIChatModal from "../components/ChatBot";
+import { 
+  BookOpen, 
+  FileText, 
+  Award, 
+  BarChart3,
+  ChevronRight,
+  Book,
+  PenTool,
+  TrendingUp,
+  CheckCircle,
+  Clock,
+  User,
+  Settings
+} from "lucide-react";
 
 export default function StudentDashboard() {
   const [activeTab, setActiveTab] = useState("courses");
 
+  const tabs = [
+    { 
+      id: "courses", 
+      label: "My Courses", 
+      icon: BookOpen, 
+      color: "from-amber-500 to-orange-500",
+      description: "Access your courses"
+    },
+    { 
+      id: "exercises", 
+      label: "Exercises", 
+      icon: FileText, 
+      color: "from-green-500 to-emerald-500",
+      description: "Practice exercises"
+    },
+    { 
+      id: "past-exams", 
+      label: "Past Exams", 
+      icon: Award, 
+      color: "from-purple-500 to-pink-500",
+      description: "Previous exam papers"
+    },
+    { 
+      id: "progress", 
+      label: "My Progress", 
+      icon: BarChart3, 
+      color: "from-blue-500 to-cyan-500",
+      description: "Track your learning"
+    },
+  ];
+
+ 
+
   // Sample courses data
-  const courses = [
+  const data = [
     {
-      subjects: ["Computer Science", "Mathematics", "Physics"],
       courses: [
         {
           id: "cs-101",
@@ -66,32 +111,10 @@ export default function StudentDashboard() {
                 retakeable: true,
               },
             },
-            // More chapters...
           ],
-          finalExam: {
-            pdf: "/exams/cs-101-final.pdf",
-            solutions: {
-              pdf: "/solutions/cs-101-final-solution.pdf",
-              videoSeries: [
-                {
-                  part: 1,
-                  title: "Problem 1-5",
-                  url: "https://vimeo.com/cs-101-final-part1",
-                },
-                // More parts...
-              ],
-            },
-          },
-          relatedPastExams: [
-            {
-              year: 2023,
-              session: "Normal",
-              pdf: "/past-exams/cs-2023-normal.pdf",
-              correction: "/past-exams/corrections/cs-2023-normal-sol.pdf",
-            },
-          ],
+          
+          
         },
-        // More courses...
       ],
       pastExams: [
         {
@@ -108,87 +131,70 @@ export default function StudentDashboard() {
           topicsCovered: ["Algorithms", "Database Systems", "Networking"],
           difficultyRating: 4.2, // 1-5 scale
         },
-        // More past exams...
       ],
     },
-  ]; // Your existing courses data
-
-  
+  ]; 
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      {/* Sidebar */}
-      <div className="w-63 bg-white border-r border-gray-200 p-4">
-        <div className="mb-8">
-          <h1 className="text-xl font-bold text-indigo-700">BacPrep</h1>
-          <p className="text-sm text-gray-500">Welcome back, Student!</p>
+    <div className="flex h-screen bg-gradient-to-br from-gray-50 to-indigo-50/30">
+      {/* Enhanced Sidebar */}
+      <div className={`flex flex-col transition-all duration-300  w-80 bg-gradient-to-b from-white via-white to-gray-50/50 border-r border-gray-200/50 backdrop-blur-sm`}>
+       
+       
+
+        {/* Navigation Tabs */}
+        <div className={`flex-1 p-4 `}>
+          <nav className="space-y-2">
+            {tabs.map((tabItem) => (
+              <button
+                key={tabItem.id}
+                onClick={() => setActiveTab(tabItem.id)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group ${
+                  activeTab === tabItem.id
+                    ? `bg-gradient-to-r ${tabItem.color} text-white shadow-lg transform scale-[1.02]`
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                }`}
+              >
+                <div className={`p-2 rounded-lg ${
+                  activeTab === tabItem.id
+                    ? "bg-white/20"
+                    : "bg-gray-100 group-hover:bg-gray-200"
+                }`}>
+                  <tabItem.icon className="h-5 w-5" />
+                </div>
+               
+                  <>
+                    <div className="flex-1 text-left">
+                      <span className="font-medium">{tabItem.label}</span>
+                      <p className="text-xs opacity-75 mt-0.5">{tabItem.description}</p>
+                    </div>
+                    {activeTab === tabItem.id && (
+                      <ChevronRight className="h-4 w-4" />
+                    )}
+                  </>
+                
+              </button>
+            ))}
+          </nav>
         </div>
-        <nav>
-          <button
-            onClick={() => setActiveTab("courses")}
-            className={`w-full text-left p-2 rounded-md mb-2 ${
-              activeTab === "courses"
-                ? "bg-indigo-100 text-indigo-700"
-                : "hover:bg-gray-100"
-            }`}
-          >
-            📚 My Courses
-          </button>
-          <button
-            onClick={() => setActiveTab("exercises")}
-            className={`w-full text-left p-2 rounded-md mb-2 ${
-              activeTab === "exercises"
-                ? "bg-indigo-100 text-indigo-700"
-                : "hover:bg-gray-100"
-            }`}
-          >
-            ✍️ Exercises
-          </button>
-          <button
-            onClick={() => setActiveTab("past-exams")}
-            className={`w-full text-left p-2 rounded-md mb-2 ${
-              activeTab === "past-exams"
-                ? "bg-indigo-100 text-indigo-700"
-                : "hover:bg-gray-100"
-            }`}
-          >
-            🏛 Past Exams
-          </button>
-          <button
-            onClick={() => setActiveTab("progress")}
-            className={`w-full text-left p-2 rounded-md mb-2 ${
-              activeTab === "progress"
-                ? "bg-indigo-100 text-indigo-700"
-                : "hover:bg-gray-100"
-            }`}
-          >
-            📊 My Progress
-          </button>
-          <button
-            onClick={() => setActiveTab("ai-chat")}
-            className={`w-full text-left p-2 rounded-md mb-2 ${
-              activeTab === "ai-chat"
-                ? "bg-indigo-100 text-indigo-700"
-                : "hover:bg-gray-100"
-            }`}
-          >
-            🤖 AI Chatbot
-          </button>
-        </nav>
+
+     
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex overflow-hidden ">
+      <div className="flex-1 flex overflow-hidden">
         <div className="w-full p-6 overflow-auto">
-          {activeTab === "courses" && <CourseViewer courses={courses} />}
-          {activeTab === "exercises" && <ExerciseViewer />}
-          {activeTab === "past-exams" && <PastExamsViewer />}
-          {activeTab === "progress" && <ProgressTracker />}
-          {activeTab === "ai-chat" && <Chatbot />}
+          <div className="animate-slideUp">
+            {activeTab === "courses" && <CourseViewer courses={data} />}
+            {activeTab === "exercises" && <ExerciseViewer />}
+            {activeTab === "past-exams" && <PastExamsViewer />}
+            {activeTab === "progress" && <ProgressTracker />}
+          </div>
         </div>
       </div>
 
-     
-    </div>
+      {/* AI Chat Modal */}
+{/*       <AIChatModal />
+ */}    </div>
   );
 }

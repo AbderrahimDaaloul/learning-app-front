@@ -9,11 +9,10 @@ import OffersPage from "../pages/OffersPage";
 import { Contact } from "lucide-react";
 import ContactPage from "../pages/ContactPage";
 import AboutPage from "../pages/AboutUs";
-import Dashboard from "../pages/Dashboard";
-import InfoBac from "../pages/Dashboard1";
 import StudentDashboard from "../pages/StudentDashboard";
 
 import AdminDashboard from "../pages/AdminDashboard";
+
 
 const AppRoutes = () => {
   return (
@@ -25,10 +24,9 @@ const AppRoutes = () => {
       <Route path="/offres" element={<OffersPage />} />
       <Route path="/Contacter" element={<ContactPage />} />
       <Route path="/propos" element={<AboutPage />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/dashboard1" element={<InfoBac />} />
-      <Route path="/Student/dashboard" element={<StudentDashboard />} />
+      <Route path="/student/dashboard" element={<StudentDashboard />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
 
       {/* Nested Routes for Dashboard */}
       <Route
