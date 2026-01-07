@@ -12,7 +12,12 @@ import {
   ArrowRight, 
   Eye, 
   X, 
-  PlayCircle 
+  PlayCircle,
+  ArrowLeft,
+  Menu,
+  Layers,
+  BookOpen,
+  Download
 } from "lucide-react";
 
 // Sample data for courses with exercises
@@ -48,29 +53,7 @@ const exerciseCourses = [
       },
       // More exercises...
     ],
-
-    
-    
   },
-
-  {
-    id: 'cs-101',
-    title: "Computer Science Fundamentals",
-    description: "Practice exercises for algorithms, data structures, and programming.",
-    thumbnail: Books,
-    details: "Sharpen your computer science skills with these targeted exercises, including algorithm analysis and coding challenges.",
-    exercises: [
-      {
-        title: "Algorithm Analysis - Exercise 1",
-        problem: "/exercises/alg-1/problem.pdf",
-        pdfSolution: "/exercises/alg-1/solution.pdf",
-        videoSolution: "https://example.com/videos/alg-1-solution"
-      },
-      // More exercises...
-    ]
-  },
-
-  
   // Add more courses as needed
 ];
 
@@ -80,6 +63,7 @@ function ExerciseViewer() {
   const [showSolution, setShowSolution] = useState(false);
   const [solutionFormat, setSolutionFormat] = useState('pdf');
   const [showDetails, setShowDetails] = useState(null); // course id for popup
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // Helper to produce a safe filename
   const getPdfFilename = (course, exercise, type) => {
@@ -302,17 +286,7 @@ function ExerciseViewer() {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 bg-purple-50 rounded-lg">
-                    <Clock className="h-4 w-4 text-purple-600" />
-                  </div>
-                  <span className="text-sm text-gray-600">Avg. Time</span>
-                </div>
-                <span className="font-semibold text-gray-800">
-                  {course.averageTime || '30 min'}
-                </span>
-              </div>
+             
             </div>
 
             {/* Action Buttons */}
@@ -507,161 +481,306 @@ function ExerciseViewer() {
   const currentExercise = exercises[selectedExercise];
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-green-50/30 p-6">
+      {/* Back Button */}
+      <button
+        onClick={() => setSelectedCourse(null)}
+        className="flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold mb-6 group transition-all duration-300"
+      >
+        <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-transform" />
+        Back to Exercise Courses
+      </button>
 
-     {/* ChatBot - Floating at bottom right */}
-      <div className="fixed bottom-6 right-6 z-40">
-        <ChatBot className="flex justify-end items-end" />
+      {/* Exercise Course Header */}
+      <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 mb-8 shadow-xl">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4 flex-1">
+            <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
+              <FileText className="h-8 w-8 text-white" />
+            </div>
+            <div className="flex-1">
+              <h1 className="text-3xl font-bold text-white mb-2">{selectedCourse.title}</h1>
+              <div className="flex items-center gap-4 text-white/90 flex-wrap">
+                <div className="flex items-center gap-1">
+                  <Layers className="h-4 w-4" />
+                  <span>{exercises.length} exercises</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Clock className="h-4 w-4" />
+                  <span>{selectedCourse.averageTime || '30 min'} avg</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Video className="h-4 w-4" />
+                  <span>{exercises.filter(e => e.videoSolution).length} video solutions</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 flex-1">
+            {/* Progress */}
+            <div className="p-4 bg-white/15 backdrop-blur-sm rounded-xl text-white flex-1">
+              <div className="flex items-center gap-3">
+                <div className="flex items-end min-w-fit gap-2">
+                  <span className="text-sm font-medium text-white/90">Exercise Progress</span>
+                  <span className="text-sm font-bold text-white">{Math.round((selectedExercise / exercises.length) * 100)}%</span>
+                </div>
+                <div className="flex-1 h-2 bg-white/30 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-white rounded-full transition-all duration-500"
+                    style={{ width: `${(selectedExercise / exercises.length) * 100}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 bg-white/20 backdrop-blur-sm rounded-xl text-white hover:bg-white/30 transition-colors"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
+          </div>
+        </div>
       </div>
 
-      <button
-        className="mb-4 text-indigo-600 hover:underline font-medium"
-        onClick={() => setSelectedCourse(null)}
-      >← Back to Exercise Courses</button>
-      <h2 className="text-2xl font-bold mb-6">Practice Exercises - {selectedCourse.title}</h2>
-      <div className="flex gap-6">
-        {/* Exercise List */}
-        <div className="w-1/3 bg-white p-4 rounded-lg shadow">
-          <h3 className="font-medium mb-3">Available Exercises</h3>
-          <ul className="space-y-2">
-            {exercises.map((ex, index) => (
-              <li key={index}>
+      <div className="flex gap-8">
+        {/* Sidebar Navigation */}
+        {sidebarOpen && (
+          <div className="w-80 bg-gradient-to-br from-white via-gray-50 to-white rounded-2xl shadow-2xl border border-gray-200/50 p-6 backdrop-blur-md">
+            <div className="mb-6">
+              <h3 className="text-xl font-bold text-gray-800 mb-1"> Exercises</h3>
+              <div className="h-1 w-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full"></div>
+            </div>
+            <div className="space-y-2">
+              {exercises.map((ex, index) => (
                 <button
+                  key={index}
                   onClick={() => {
                     setSelectedExercise(index);
                     setShowSolution(false);
                   }}
-                  className={`w-full text-left p-3 rounded-md ${selectedExercise === index 
-                    ? 'bg-indigo-50 border border-indigo-200' 
-                    : 'hover:bg-gray-50 border border-transparent'}`}
+                  className={`w-full text-left p-4 rounded-xl transition-all duration-300 group relative overflow-hidden ${
+                    selectedExercise === index
+                      ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg shadow-green-500/30"
+                      : "bg-gray-100/60 hover:bg-gray-200/60 text-gray-800"
+                  }`}
                 >
-                  <span className="font-medium">{ex.title}</span>
-                  <span className="block text-xs text-gray-500 mt-1">Difficulty: Medium</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-500/0 to-emerald-500/0 group-hover:from-white/10 group-hover:to-white/5 transition-all duration-300"></div>
+                  <div className="relative flex items-center justify-between">
+                    <div className="flex items-center gap-3 flex-1">
+                      <div className={`p-2.5 rounded-lg transition-all duration-300 ${
+                        selectedExercise === index
+                          ? "bg-white/20 shadow-lg"
+                          : "bg-gray-200/60 group-hover:bg-gray-300/60"
+                      }`}>
+                        <FileText className={`h-4 w-4 ${
+                          selectedExercise === index ? "text-white" : "text-gray-600"
+                        }`} />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className={`font-semibold text-sm truncate ${
+                          selectedExercise === index ? "text-white" : "text-gray-800"
+                        }`}>{ex.title}</p>
+                        <p className={`text-xs mt-1 ${
+                          selectedExercise === index ? "text-white/70" : "text-gray-500"
+                        }`}>Difficulty: {ex.difficulty || 'Medium'}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 ml-2">
+                      {ex.completed && (
+                        <CheckCircle className={`h-4 w-4 transition-all ${
+                          selectedExercise === index ? "text-white" : "text-green-500"
+                        }`} />
+                      )}
+                      {ex.videoSolution && (
+                        <span className={`text-xs font-semibold px-2 py-1 rounded-lg transition-all ${
+                          selectedExercise === index 
+                            ? "bg-white/20 text-white" 
+                            : "bg-gray-200/70 text-gray-700"
+                        }`}>
+                          <Video className="h-3 w-3" />
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Exercise Content */}
-        <div className="flex-1 space-y-4">
-          {/* Problem Section */}
-          <div className="bg-white p-6 rounded-lg shadow relative">
-            <div className="absolute top-4 right-4 z-20 flex items-center gap-3">
-              <a
-                href={currentExercise.problem}
-                download={getPdfFilename(selectedCourse, currentExercise, 'problem')}
-                title="Download Problem PDF"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-pink-500 hover:from-indigo-700 hover:to-pink-600 text-white px-4 py-2 rounded-xl shadow-lg transition-transform transform hover:-translate-y-0.5"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v12m0 0l4-4m-4 4-4-4M4 21h16" />
-                </svg>
-                Download
-              </a>
-              <a
-                href={currentExercise.problem}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Open Problem in new tab"
-                className="inline-flex items-center gap-2 bg-white border border-gray-200 hover:shadow-md text-gray-700 px-3 py-2 rounded-lg transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 3h7v7m0-7L10 14" />
-                </svg>
-              Open File 
-
-              </a>
+              ))}
             </div>
+          </div>
+        )}
 
-            <h3 className="text-xl font-medium mb-4">
-              {currentExercise.title}
-            </h3>
-            <div className="h-[400px] mb-4">
-              <iframe 
-                src={currentExercise.problem}
-                className="w-full h-full border rounded-lg"
-                title="Exercise Problem"
-              />
-            </div>
+        {/* Main Content Area */}
+        <div className="flex-1">
+          {/* Content Type Toggle */}
+          <div className="flex gap-2 mb-6">
             <button
-              onClick={() => setShowSolution(!showSolution)}
-              className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium transition-colors"
+              onClick={() => setShowSolution(false)}
+              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
+                !showSolution
+                  ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg"
+                  : "bg-white text-gray-700 border border-gray-200 hover:border-green-300"
+              }`}
             >
-              {showSolution ? 'Hide Solution' : 'Show Solution'}
+              <FileText className="h-5 w-5" />
+              Problem
+            </button>
+            <button
+              onClick={() => setShowSolution(true)}
+              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
+                showSolution
+                  ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg"
+                  : "bg-white text-gray-700 border border-gray-200 hover:border-green-300"
+              }`}
+            >
+              <CheckCircle className="h-5 w-5" />
+              Solution
             </button>
           </div>
 
-          {/* Solution Section */}
-          {showSolution && (
-            <div className="bg-white p-6 rounded-lg shadow">
-              <div className="flex mb-4 border-b border-gray-200">
-                <button
-                  onClick={() => setSolutionFormat('pdf')}
-                  className={`pb-2 px-4 font-medium transition-colors ${solutionFormat === 'pdf' 
-                    ? 'border-b-2 border-indigo-500 text-indigo-600' 
-                    : 'text-gray-500 hover:text-gray-700'}`}
-                >
-                  PDF Correction
-                </button>
-                <button
-                  onClick={() => setSolutionFormat('video')}
-                  className={`pb-2 px-4 font-medium transition-colors ${solutionFormat === 'video' 
-                    ? 'border-b-2 border-indigo-500 text-indigo-600' 
-                    : 'text-gray-500 hover:text-gray-700'}`}
-                >
-                  Video Explanation
-                </button>
-              </div>
-              
-              {solutionFormat === 'pdf' ? (
-                <div className="relative">
-                  <div className="absolute top-0 right-0 z-20 flex items-center gap-3">
-                    <a
-                      href={currentExercise.pdfSolution}
-                      download={getPdfFilename(selectedCourse, currentExercise, 'solution')}
-                      title="Download Solution PDF"
-                      className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-pink-500 hover:from-indigo-700 hover:to-pink-600 text-white px-4 py-2 rounded-xl shadow-lg transition-transform transform hover:-translate-y-0.5"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v12m0 0l4-4m-4 4-4-4M4 21h16" />
-                      </svg>
-                      Download
-                    </a>
-                    <a
-                      href={currentExercise.pdfSolution}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title="Open Solution in new tab"
-                      className="inline-flex items-center gap-2 bg-white border border-gray-200 hover:shadow-md text-gray-700 px-3 py-2 rounded-lg transition-colors"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 3h7v7m0-7L10 14" />
-                      </svg>
-                      Open File 
-                    </a>
-                  </div>
-                  <div className="h-[400px] pt-12">
-                    <iframe 
-                      src={currentExercise.pdfSolution}
-                      className="w-full h-full border rounded-lg"
-                      title="PDF Solution"
-                    />
+          {/* Content Display */}
+          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+            {/* Content Header */}
+            <div className="p-6 border-b border-gray-100">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-800">
+                    {currentExercise.title}
+                  </h3>
+                  <div className="flex items-center gap-4 mt-2">
+                    <div className="flex items-center gap-2 text-gray-600">
+                      <Zap className="h-4 w-4" />
+                      <span>Difficulty: {currentExercise.difficulty || 'Medium'}</span>
+                    </div>
                   </div>
                 </div>
-              ) : (
-                <div className="aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden">
-                  <video 
-                    src={currentExercise.videoSolution}
-                    controls
-                    className="w-full h-full"
+                <div className="flex items-center gap-3">
+                  <a
+                    href={showSolution ? currentExercise.pdfSolution : currentExercise.problem}
+                    download={getPdfFilename(selectedCourse, currentExercise, showSolution ? 'solution' : 'problem')}
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-4 py-2 rounded-xl shadow-lg transition-transform transform hover:-translate-y-0.5"
+                  >
+                    <Download className="h-4 w-4" />
+                    Download
+                  </a>
+                  <a
+                    href={showSolution ? currentExercise.pdfSolution : currentExercise.problem}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-white border border-gray-200 hover:shadow-md text-gray-700 px-4 py-2 rounded-xl transition-colors"
+                  >
+                    <Eye className="h-4 w-4" />
+                    Open
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* PDF/Video Content */}
+            <div className="p-6">
+              {!showSolution ? (
+                /* Problem PDF */
+                <div className="h-[500px] bg-gray-50 rounded-xl overflow-hidden">
+                  <iframe 
+                    src={currentExercise.problem}
+                    className="w-full h-full border-0"
+                    title="Exercise Problem"
                   />
+                </div>
+              ) : (
+                /* Solution Content */
+                <div>
+                  {/* Solution Format Toggle */}
+                  <div className="flex gap-2 mb-4">
+                    <button
+                      onClick={() => setSolutionFormat('pdf')}
+                      className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                        solutionFormat === 'pdf'
+                          ? 'bg-green-100 text-green-700 border border-green-200'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                    >
+                      PDF Correction
+                    </button>
+                    <button
+                      onClick={() => setSolutionFormat('video')}
+                      className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                        solutionFormat === 'video'
+                          ? 'bg-green-100 text-green-700 border border-green-200'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                    >
+                      Video Explanation
+                    </button>
+                  </div>
+
+                  {solutionFormat === 'pdf' ? (
+                    <div className="h-[500px] bg-gray-50 rounded-xl overflow-hidden">
+                      <iframe 
+                        src={currentExercise.pdfSolution}
+                        className="w-full h-full border-0"
+                        title="PDF Solution"
+                      />
+                    </div>
+                  ) : (
+                    <div className="h-[500px] bg-black rounded-xl overflow-hidden">
+                      <video 
+                        src={currentExercise.videoSolution}
+                        controls
+                        className="w-full h-full"
+                      />
+                    </div>
+                  )}
                 </div>
               )}
             </div>
-          )}
+
+            {/* Navigation Footer */}
+            <div className="p-6 border-t border-gray-100 bg-gray-50">
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={() => {
+                    if (selectedExercise > 0) {
+                      setSelectedExercise(selectedExercise - 1);
+                      setShowSolution(false);
+                    }
+                  }}
+                  disabled={selectedExercise === 0}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
+                    selectedExercise === 0
+                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      : 'bg-white text-gray-700 border border-gray-200 hover:border-green-300 hover:text-green-600'
+                  }`}
+                >
+                  <ArrowLeft className="h-5 w-5" />
+                  Previous
+                </button>
+                <span className="text-gray-600 font-medium">
+                  Exercise {selectedExercise + 1} of {exercises.length}
+                </span>
+                <button
+                  onClick={() => {
+                    if (selectedExercise < exercises.length - 1) {
+                      setSelectedExercise(selectedExercise + 1);
+                      setShowSolution(false);
+                    }
+                  }}
+                  disabled={selectedExercise === exercises.length - 1}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
+                    selectedExercise === exercises.length - 1
+                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-lg'
+                  }`}
+                >
+                  Next
+                  <ArrowRight className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* ChatBot - Only shows when viewing an exercise */}
+      <ChatBot theme="exercises" />
     </div>
   );
 }

@@ -107,26 +107,18 @@ const RenderExamsTab = ({ pastExams, setPastExams, showExamModal, setShowExamMod
                   <div className="flex-1">
                     <div className="flex items-center gap-4 mb-3">
                       <h3 className="text-xl font-bold text-gray-800">{exam.title}</h3>
-                      <span className="px-3 py-1 text-sm font-medium bg-purple-100 text-purple-700 rounded-full">
-                        {exam.totalQuestions} Questions
-                      </span>
+                     
                     </div>
                     
                     <p className="text-gray-600 mb-4">{exam.description}</p>
                     
                     <div className="flex flex-wrap items-center gap-6">
-                      <div className="flex items-center gap-2 text-gray-500">
-                        <Calendar className="h-4 w-4" />
-                        <span className="text-sm">{exam.date}</span>
-                      </div>
+                     
                       <div className="flex items-center gap-2 text-gray-500">
                         <Clock className="h-4 w-4" />
                         <span className="text-sm">{exam.duration}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-gray-500">
-                        <CheckCircle className="h-4 w-4" />
-                        <span className="text-sm">Passing: {exam.passingScore}%</span>
-                      </div>
+                     
                     </div>
                   </div>
                   

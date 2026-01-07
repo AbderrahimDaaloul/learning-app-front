@@ -1,63 +1,55 @@
 import React from 'react';
 import { 
-  BookOpen, 
-  Video, 
-  FileText, 
-  MessageSquare, 
-  Trophy, 
-  Users, 
-  Star,
-  Menu,
-  X,
-  ChevronRight,
-  Play,
-  Download,
-  Brain,
-  Globe,
-  CheckCircle,
+  Play, 
+  Clock, 
+  CheckCircle, 
+  Sparkles,
   ArrowRight,
-  Zap,
-  Shield,
-  Clock
+  ShieldCheck,
+  Zap
 } from 'lucide-react';
 
-// CTA Section Component
 const CTASection = () => {
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-30" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-      }}></div>
+    <section className="relative py-24 bg-white overflow-hidden">
+      {/* Subtle Background Pattern (Optional) */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
       
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20">
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-            Ready to Transform Your Learning?
-          </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Join thousands of successful students who have achieved their academic goals with our comprehensive platform.
-          </p>
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* The Card - Now with a White/Slate theme */}
+        <div className="relative bg-white  rounded-[3rem] p-8 md:p-16 lg:p-20 ]">
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all transform hover:scale-105 flex items-center space-x-2">
-              <Play className="h-5 w-5" />
-              <span>Start Free Trial</span>
-            </button>
-            <button className="border-2 border-white/30 hover:border-white/50 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:bg-white/10 flex items-center space-x-2">
-              <Clock className="h-5 w-5" />
-              <span>Schedule Demo</span>
-            </button>
-          </div>
-          
-          <div className="mt-8 flex items-center justify-center space-x-6 text-gray-300">
-            <div className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-400" />
-              <span>No credit card required</span>
+          {/* Subtle Accent Glows for White Theme */}
+          <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-blue-50 rounded-full blur-[100px]"></div>
+          <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-indigo-50 rounded-full blur-[100px]"></div>
+
+          <div className="relative z-10 flex flex-col items-center text-center">
+            {/* Top Badge */}
+           
+
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-8 tracking-tighter leading-[1.1]">
+              Ready to <span className="text-blue-600">Transform</span> <br />
+              Your Learning?
+            </h2>
+
+            <p className="text-lg md:text-xl text-slate-500 mb-12 max-w-2xl leading-relaxed font-medium">
+              Join <span className="text-slate-900 font-bold">10,000+ successful students</span> who are already mastering the Baccalaureate with our AI-driven tools.
+            </p>
+            
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+              {/* Primary Action - Dark to stand out on White */}
+              <button className="group relative bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all hover:bg-slate-800 hover:scale-[1.02] active:scale-95 flex items-center justify-center space-x-3 shadow-xl shadow-slate-200">
+                <Play className="h-5 w-5 fill-current" />
+                <span>Start learning now</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+
+             
             </div>
-            <div className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-400" />
-              <span>Cancel anytime</span>
-            </div>
+            
+            {/* Trust Footer */}
+           
           </div>
         </div>
       </div>

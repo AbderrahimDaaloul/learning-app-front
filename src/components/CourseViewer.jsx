@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Books from "../assets/Books.jpg";
-import ChatBot from "../components/ChatBot";
+import ChatBot from "./ChatBot";
 import {
   BookOpen,
   Clock,
@@ -23,7 +23,7 @@ import {
   Calendar,
   Play,
   ArrowRight,
-  Info
+  Info,
 } from "lucide-react";
 
 // Sample data for multiple courses
@@ -31,10 +31,10 @@ const coursesData = [
   {
     id: "cs-101",
     title: "Algorithms Fundamentals",
-    description: "Master basic algorithms, data structures, and programming concepts from scratch.",
+    description:
+      "Master basic algorithms, data structures, and programming concepts from scratch.",
     thumbnail: Books,
     level: "Beginner",
-    duration: "12 hours",
     rating: 4.8,
     averageScore: 85,
     enrolled: 245,
@@ -45,7 +45,7 @@ const coursesData = [
         pdfUrl: "/pdfs/algorithms.pdf",
         duration: "45 min",
         exercises: 5,
-        completed: true
+        completed: true,
       },
       {
         title: "Data Structures Basics",
@@ -53,7 +53,7 @@ const coursesData = [
         pdfUrl: "/pdfs/data-structures.pdf",
         duration: "60 min",
         exercises: 8,
-        completed: false
+        completed: false,
       },
       {
         title: "Time Complexity Analysis",
@@ -61,18 +61,20 @@ const coursesData = [
         pdfUrl: "/pdfs/complexity.pdf",
         duration: "50 min",
         exercises: 6,
-        completed: false
-      }
+        completed: false,
+      },
     ],
-    details: "This comprehensive course introduces the foundational concepts of computer science, including algorithms, data structures, and programming basics. Perfect for beginners looking to build a strong foundation in computer science.",
+    details:
+      "This comprehensive course introduces the foundational concepts of computer science, including algorithms, data structures, and programming basics. Perfect for beginners looking to build a strong foundation in computer science.",
     isPremium: false,
     completionRate: 65,
-    averageDifficulty: "Medium"
+    averageDifficulty: "Medium",
   },
   {
     id: "math-101",
     title: "Python Essentials",
-    description: "Learn Python programming from basics to advanced concepts with practical examples.",
+    description:
+      "Learn Python programming from basics to advanced concepts with practical examples.",
     thumbnail: Books,
     level: "Beginner",
     duration: "15 hours",
@@ -86,7 +88,7 @@ const coursesData = [
         pdfUrl: "/pdfs/python-basics.pdf",
         duration: "55 min",
         exercises: 7,
-        completed: true
+        completed: true,
       },
       {
         title: "Functions and Modules",
@@ -94,18 +96,20 @@ const coursesData = [
         pdfUrl: "/pdfs/functions.pdf",
         duration: "65 min",
         exercises: 9,
-        completed: false
-      }
+        completed: false,
+      },
     ],
-    details: "A complete Python programming course covering everything from basic syntax to advanced concepts like object-oriented programming and web development.",
+    details:
+      "A complete Python programming course covering everything from basic syntax to advanced concepts like object-oriented programming and web development.",
     isPremium: true,
     completionRate: 42,
-    averageDifficulty: "Easy"
+    averageDifficulty: "Easy",
   },
   {
     id: "design-101",
     title: "UI/UX Design Principles",
-    description: "Master modern design principles and create stunning user interfaces.",
+    description:
+      "Master modern design principles and create stunning user interfaces.",
     thumbnail: Books,
     level: "Intermediate",
     duration: "18 hours",
@@ -119,14 +123,15 @@ const coursesData = [
         pdfUrl: "/pdfs/design-fundamentals.pdf",
         duration: "70 min",
         exercises: 6,
-        completed: false
-      }
+        completed: false,
+      },
     ],
-    details: "Learn the principles of modern UI/UX design, including color theory, typography, layout, and user psychology.",
+    details:
+      "Learn the principles of modern UI/UX design, including color theory, typography, layout, and user psychology.",
     isPremium: false,
     completionRate: 28,
-    averageDifficulty: "Medium"
-  }
+    averageDifficulty: "Medium",
+  },
 ];
 
 function CourseViewer() {
@@ -139,12 +144,31 @@ function CourseViewer() {
   // Calculate stats
   const stats = {
     totalCourses: coursesData.length,
-    totalChapters: coursesData.reduce((acc, course) => acc + course.chapters.length, 0),
-    totalVideos: coursesData.reduce((acc, course) => acc + course.chapters.length, 0),
-    totalPDFs: coursesData.reduce((acc, course) => acc + course.chapters.length, 0),
-    totalExercises: coursesData.reduce((acc, course) => 
-      acc + course.chapters.reduce((chapAcc, chapter) => chapAcc + (chapter.exercises || 0), 0), 0),
-    enrolledStudents: coursesData.reduce((acc, course) => acc + course.enrolled, 0)
+    totalChapters: coursesData.reduce(
+      (acc, course) => acc + course.chapters.length,
+      0
+    ),
+    totalVideos: coursesData.reduce(
+      (acc, course) => acc + course.chapters.length,
+      0
+    ),
+    totalPDFs: coursesData.reduce(
+      (acc, course) => acc + course.chapters.length,
+      0
+    ),
+    totalExercises: coursesData.reduce(
+      (acc, course) =>
+        acc +
+        course.chapters.reduce(
+          (chapAcc, chapter) => chapAcc + (chapter.exercises || 0),
+          0
+        ),
+      0
+    ),
+    enrolledStudents: coursesData.reduce(
+      (acc, course) => acc + course.enrolled,
+      0
+    ),
   };
 
   // Helper functions
@@ -198,7 +222,8 @@ function CourseViewer() {
             </h2>
           </div>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Explore our curated collection of courses designed to help you master new skills.
+            Explore our curated collection of courses designed to help you
+            master new skills.
           </p>
         </div>
 
@@ -211,7 +236,9 @@ function CourseViewer() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Total Courses</p>
-                <p className="text-2xl font-bold text-gray-800">{stats.totalCourses}</p>
+                <p className="text-2xl font-bold text-gray-800">
+                  {stats.totalCourses}
+                </p>
               </div>
             </div>
           </div>
@@ -223,7 +250,9 @@ function CourseViewer() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Total Chapters</p>
-                <p className="text-2xl font-bold text-gray-800">{stats.totalChapters}</p>
+                <p className="text-2xl font-bold text-gray-800">
+                  {stats.totalChapters}
+                </p>
               </div>
             </div>
           </div>
@@ -235,7 +264,9 @@ function CourseViewer() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Video Lessons</p>
-                <p className="text-2xl font-bold text-gray-800">{stats.totalVideos}</p>
+                <p className="text-2xl font-bold text-gray-800">
+                  {stats.totalVideos}
+                </p>
               </div>
             </div>
           </div>
@@ -247,7 +278,9 @@ function CourseViewer() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Enrolled Students</p>
-                <p className="text-2xl font-bold text-gray-800">{stats.enrolledStudents}</p>
+                <p className="text-2xl font-bold text-gray-800">
+                  {stats.enrolledStudents}
+                </p>
               </div>
             </div>
           </div>
@@ -268,53 +301,21 @@ function CourseViewer() {
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
-                
+
                 {/* Course Level Badge */}
                 <div className="absolute top-4 left-4">
-                  <span className={`px-3 py-1.5 text-white text-xs font-semibold rounded-full shadow-lg ${
-                    course.level === 'Beginner' ? 'bg-gradient-to-r from-green-500 to-emerald-500' :
-                    course.level === 'Intermediate' ? 'bg-gradient-to-r from-amber-500 to-orange-500' :
-                    'bg-gradient-to-r from-red-500 to-pink-500'
-                  }`}>
+                  <span
+                    className={`px-3 py-1.5 text-white text-xs font-semibold rounded-full shadow-lg ${
+                      course.level === "Beginner"
+                        ? "bg-gradient-to-r from-green-500 to-emerald-500"
+                        : course.level === "Intermediate"
+                        ? "bg-gradient-to-r from-amber-500 to-orange-500"
+                        : "bg-gradient-to-r from-red-500 to-pink-500"
+                    }`}
+                  >
                     {course.level}
                   </span>
                 </div>
-                
-                {/* Duration Badge */}
-                <div className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1.5 bg-white/90 backdrop-blur-sm rounded-full">
-                  <Clock className="h-3 w-3 text-indigo-600" />
-                  <span className="text-xs font-semibold text-gray-700">{course.duration}</span>
-                </div>
-
-                {/* Progress Badge */}
-               {/*  <div className="absolute top-16 right-4">
-                  <div className="relative w-12 h-12">
-                    <svg className="w-full h-full transform -rotate-90">
-                      <circle
-                        cx="24"
-                        cy="24"
-                        r="20"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                        fill="transparent"
-                        className="text-indigo-100"
-                      />
-                      <circle
-                        cx="24"
-                        cy="24"
-                        r="20"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                        fill="transparent"
-                        strokeDasharray={`${course.completionRate * 1.26} 126`}
-                        className="text-indigo-500"
-                      />
-                    </svg>
-                    <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-indigo-700">
-                      {Math.round(course.completionRate)}%
-                    </span>
-                  </div>
-                </div> */}
               </div>
 
               {/* Course Content */}
@@ -338,30 +339,24 @@ function CourseViewer() {
                       </div>
                       <span className="text-sm text-gray-600">Chapters</span>
                     </div>
-                    <span className="font-semibold text-gray-800">{course.chapters.length}</span>
+                    <span className="font-semibold text-gray-800">
+                      {course.chapters.length}
+                    </span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="p-1.5 bg-green-50 rounded-lg">
-                        <FileText className="h-4 w-4 text-green-600" />
+                      <div className="p-1.5 bg-blue-50 rounded-lg">
+                        <Video className="h-4 w-4 text-blue-600" />
                       </div>
-                      <span className="text-sm text-gray-600">Exercises</span>
+                      <span className="text-sm text-gray-600">Videos</span>
                     </div>
                     <span className="font-semibold text-gray-800">
-                      {course.chapters.reduce((acc, chapter) => acc + (chapter.exercises || 0), 0)}
+                      {course.chapters.length}
                     </span>
                   </div>
 
-                 {/*  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="p-1.5 bg-amber-50 rounded-lg">
-                        <Users className="h-4 w-4 text-amber-600" />
-                      </div>
-                      <span className="text-sm text-gray-600">Enrolled</span>
-                    </div>
-                    <span className="font-semibold text-gray-800">{course.enrolled}</span>
-                  </div> */}
+                
                 </div>
 
                 {/* Action Buttons */}
@@ -374,7 +369,7 @@ function CourseViewer() {
                     Start Learning
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </button>
-                  
+
                   <button
                     onClick={() => setShowDetails(course.id)}
                     className="px-4 py-3 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 rounded-xl font-medium shadow hover:shadow-md transition-all duration-300"
@@ -385,13 +380,12 @@ function CourseViewer() {
               </div>
 
               {/* Premium Badge */}
-            
             </div>
           ))}
         </div>
 
         {/* Enhanced Details Modal */}
-        {showDetails && coursesData.find(c => c.id === showDetails) && (
+        {showDetails && coursesData.find((c) => c.id === showDetails) && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-indigo-900/30 via-purple-900/20 to-pink-900/20 backdrop-blur-lg animate-fadeIn">
             <div className="relative max-w-2xl w-full bg-gradient-to-br from-white via-white to-indigo-50 rounded-3xl shadow-2xl overflow-hidden border border-white/50">
               {/* Close Button */}
@@ -406,8 +400,8 @@ function CourseViewer() {
               {/* Modal Header with Gradient */}
               <div className="relative h-64 overflow-hidden">
                 <img
-                  src={coursesData.find(c => c.id === showDetails)?.thumbnail}
-                  alt={coursesData.find(c => c.id === showDetails)?.title}
+                  src={coursesData.find((c) => c.id === showDetails)?.thumbnail}
+                  alt={coursesData.find((c) => c.id === showDetails)?.title}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
@@ -417,11 +411,11 @@ function CourseViewer() {
                       <BookOpen className="h-6 w-6 text-white" />
                     </div>
                     <h3 className="text-3xl font-bold text-white">
-                      {coursesData.find(c => c.id === showDetails)?.title}
+                      {coursesData.find((c) => c.id === showDetails)?.title}
                     </h3>
                   </div>
                   <p className="text-white/90 text-lg">
-                    {coursesData.find(c => c.id === showDetails)?.description}
+                    {coursesData.find((c) => c.id === showDetails)?.description}
                   </p>
                 </div>
               </div>
@@ -433,31 +427,42 @@ function CourseViewer() {
                   <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-4 rounded-2xl text-center">
                     <Layers className="h-8 w-8 text-indigo-600 mx-auto mb-2" />
                     <p className="text-2xl font-bold text-gray-800">
-                      {coursesData.find(c => c.id === showDetails)?.chapters.length}
+                      {
+                        coursesData.find((c) => c.id === showDetails)?.chapters
+                          .length
+                      }
                     </p>
                     <p className="text-sm text-gray-600">Chapters</p>
                   </div>
-                  
+
                   <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-2xl text-center">
                     <FileText className="h-8 w-8 text-green-600 mx-auto mb-2" />
                     <p className="text-2xl font-bold text-gray-800">
-                      {coursesData.find(c => c.id === showDetails)?.chapters.reduce((acc, chapter) => acc + (chapter.exercises || 0), 0)}
+                      {coursesData
+                        .find((c) => c.id === showDetails)
+                        ?.chapters.reduce(
+                          (acc, chapter) => acc + (chapter.exercises || 0),
+                          0
+                        )}
                     </p>
                     <p className="text-sm text-gray-600">Exercises</p>
                   </div>
-                  
+
                   <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-2xl text-center">
                     <Video className="h-8 w-8 text-blue-600 mx-auto mb-2" />
                     <p className="text-2xl font-bold text-gray-800">
-                      {coursesData.find(c => c.id === showDetails)?.chapters.length}
+                      {
+                        coursesData.find((c) => c.id === showDetails)?.chapters
+                          .length
+                      }
                     </p>
                     <p className="text-sm text-gray-600">Videos</p>
                   </div>
-                  
+
                   <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-4 rounded-2xl text-center">
                     <Clock className="h-8 w-8 text-amber-600 mx-auto mb-2" />
                     <p className="text-2xl font-bold text-gray-800">
-                      {coursesData.find(c => c.id === showDetails)?.duration}
+                      {coursesData.find((c) => c.id === showDetails)?.duration}
                     </p>
                     <p className="text-sm text-gray-600">Duration</p>
                   </div>
@@ -465,35 +470,55 @@ function CourseViewer() {
 
                 {/* Course Details */}
                 <div className="mb-8">
-                  <h4 className="text-xl font-semibold text-gray-800 mb-4">Course Overview</h4>
+                  <h4 className="text-xl font-semibold text-gray-800 mb-4">
+                    Course Overview
+                  </h4>
                   <p className="text-gray-600 leading-relaxed">
-                    {coursesData.find(c => c.id === showDetails)?.details || "No additional details available."}
+                    {coursesData.find((c) => c.id === showDetails)?.details ||
+                      "No additional details available."}
                   </p>
                 </div>
 
                 {/* Chapters Preview */}
                 <div className="mb-8">
-                  <h4 className="text-xl font-semibold text-gray-800 mb-4">Course Chapters</h4>
+                  <h4 className="text-xl font-semibold text-gray-800 mb-4">
+                    Course Chapters
+                  </h4>
                   <div className="space-y-3">
-                    {coursesData.find(c => c.id === showDetails)?.chapters.slice(0, 3).map((chapter, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                        <div className="flex items-center gap-3">
-                          <div className="p-2 bg-indigo-50 rounded-lg">
-                            <PlayCircle className="h-4 w-4 text-indigo-600" />
+                    {coursesData
+                      .find((c) => c.id === showDetails)
+                      ?.chapters.slice(0, 3)
+                      .map((chapter, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center justify-between p-3 bg-gray-50 rounded-xl"
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 bg-indigo-50 rounded-lg">
+                              <PlayCircle className="h-4 w-4 text-indigo-600" />
+                            </div>
+                            <div>
+                              <p className="font-medium text-gray-800">
+                                {chapter.title}
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                {chapter.duration} • {chapter.exercises}{" "}
+                                exercises
+                              </p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="font-medium text-gray-800">{chapter.title}</p>
-                            <p className="text-sm text-gray-500">{chapter.duration} • {chapter.exercises} exercises</p>
-                          </div>
+                          {chapter.completed && (
+                            <CheckCircle className="h-5 w-5 text-green-500" />
+                          )}
                         </div>
-                        {chapter.completed && (
-                          <CheckCircle className="h-5 w-5 text-green-500" />
-                        )}
-                      </div>
-                    ))}
-                    {coursesData.find(c => c.id === showDetails)?.chapters.length > 3 && (
+                      ))}
+                    {coursesData.find((c) => c.id === showDetails)?.chapters
+                      .length > 3 && (
                       <p className="text-center text-indigo-600 font-medium">
-                        +{coursesData.find(c => c.id === showDetails)?.chapters.length - 3} more chapters
+                        +
+                        {coursesData.find((c) => c.id === showDetails)?.chapters
+                          .length - 3}{" "}
+                        more chapters
                       </p>
                     )}
                   </div>
@@ -503,7 +528,9 @@ function CourseViewer() {
                 <div className="flex gap-4">
                   <button
                     onClick={() => {
-                      handleSelectCourse(coursesData.find(c => c.id === showDetails));
+                      handleSelectCourse(
+                        coursesData.find((c) => c.id === showDetails)
+                      );
                       handleCloseDetails();
                     }}
                     className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-6 py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 group"
@@ -512,7 +539,7 @@ function CourseViewer() {
                     Enroll & Start Learning
                     <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </button>
-                  
+
                   <button
                     onClick={handleCloseDetails}
                     className="px-6 py-4 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
@@ -531,15 +558,17 @@ function CourseViewer() {
             <div className="mx-auto w-32 h-32 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full flex items-center justify-center mb-6">
               <BookOpen className="h-16 w-16 text-gray-400" />
             </div>
-            <h3 className="text-2xl font-semibold text-gray-700 mb-2">No courses available</h3>
+            <h3 className="text-2xl font-semibold text-gray-700 mb-2">
+              No courses available
+            </h3>
             <p className="text-gray-500 max-w-md mx-auto">
-              Check back soon for new course offerings or explore other learning paths.
+              Check back soon for new course offerings or explore other learning
+              paths.
             </p>
           </div>
         )}
 
         {/* ChatBot */}
-    
       </div>
     );
   }
@@ -559,13 +588,15 @@ function CourseViewer() {
       {/* Course Header */}
       <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 mb-8 shadow-xl">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-1">
             <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
               <BookOpen className="h-8 w-8 text-white" />
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-white mb-2">{selectedCourse.title}</h1>
-              <div className="flex items-center gap-4 text-white/90">
+            <div className="flex-1">
+              <h1 className="text-3xl font-bold text-white mb-2">
+                {selectedCourse.title}
+              </h1>
+              <div className="flex items-center gap-4 text-white/90 flex-wrap">
                 <div className="flex items-center gap-1">
                   <Clock className="h-4 w-4" />
                   <span>{selectedCourse.duration}</span>
@@ -581,72 +612,119 @@ function CourseViewer() {
               </div>
             </div>
           </div>
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 bg-white/20 backdrop-blur-sm rounded-xl text-white hover:bg-white/30 transition-colors"
-          >
-            <Menu className="h-6 w-6" />
-          </button>
+          <div className="flex items-center gap-4 flex-1">
+            {/* Course Progress */}
+            <div className="p-4 bg-white/15 backdrop-blur-sm rounded-xl text-white flex-1">
+              <div className="flex items-center gap-3">
+                <div className="flex  items-end min-w-fit gap-2">
+                  <span className="text-sm font-medium text-white/90 ">
+                    Course Progress{" "}
+                  </span>
+                  <span className="text-sm font-bold text-white">
+                    {selectedCourse.completionRate}%
+                  </span>
+                </div>
+                <div className="flex-1 h-2 bg-white/30 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-white rounded-full transition-all duration-500"
+                    style={{ width: `${selectedCourse.completionRate}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 bg-white/20 backdrop-blur-sm rounded-xl text-white hover:bg-white/30 transition-colors"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
+          </div>
         </div>
       </div>
 
       <div className="flex gap-8">
         {/* Sidebar Navigation */}
         {sidebarOpen && (
-          <div className="w-80 bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Course Chapters</h3>
-            <div className="space-y-3">
+          <div className="w-80 bg-gradient-to-br from-white via-gray-50 to-white rounded-2xl shadow-2xl border border-gray-200/50 p-6 backdrop-blur-md">
+            <div className="mb-6">
+              <h3 className="text-xl font-bold text-gray-800 mb-1">
+                Course Chapters
+              </h3>
+              <div className="h-1 w-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
+            </div>
+            <div className="space-y-2">
               {selectedCourse.chapters.map((chapter, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentChapter(index)}
-                  className={`w-full text-left p-4 rounded-xl transition-all duration-300 ${
+                  className={`w-full text-left p-4 rounded-xl transition-all duration-300 group relative overflow-hidden ${
                     currentChapter === index
-                      ? "bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100 transform scale-[1.02]"
-                      : "hover:bg-gray-50 border border-transparent"
+                      ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/30"
+                      : "bg-gray-100/60 hover:bg-gray-200/60 text-gray-800"
                   }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className={`p-2 rounded-lg ${
-                        currentChapter === index
-                          ? "bg-gradient-to-r from-indigo-500 to-purple-500"
-                          : "bg-gray-100"
-                      }`}>
-                        <PlayCircle className={`h-4 w-4 ${
-                          currentChapter === index ? "text-white" : "text-gray-600"
-                        }`} />
+                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 to-purple-500/0 group-hover:from-white/10 group-hover:to-white/5 transition-all duration-300"></div>
+                  <div className="relative flex items-center justify-between">
+                    <div className="flex items-center gap-3 flex-1">
+                      <div
+                        className={`p-2.5 rounded-lg transition-all duration-300 ${
+                          currentChapter === index
+                            ? "bg-white/20 shadow-lg"
+                            : "bg-gray-200/60 group-hover:bg-gray-300/60"
+                        }`}
+                      >
+                        <PlayCircle
+                          className={`h-4 w-4 ${
+                            currentChapter === index
+                              ? "text-white"
+                              : "text-gray-600"
+                          }`}
+                        />
                       </div>
-                      <div>
-                        <p className="font-medium text-gray-800">{chapter.title}</p>
-                        <p className="text-sm text-gray-500">{chapter.duration}</p>
+                      <div className="min-w-0 flex-1">
+                        <p
+                          className={`font-semibold text-sm truncate ${
+                            currentChapter === index
+                              ? "text-white"
+                              : "text-gray-800"
+                          }`}
+                        >
+                          {chapter.title}
+                        </p>
+                        <p
+                          className={`text-xs mt-1 ${
+                            currentChapter === index
+                              ? "text-white/70"
+                              : "text-gray-500"
+                          }`}
+                        >
+                          {chapter.duration}
+                        </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 ml-2">
                       {chapter.completed && (
-                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <CheckCircle
+                          className={`h-4 w-4 transition-all ${
+                            currentChapter === index
+                              ? "text-white"
+                              : "text-green-500"
+                          }`}
+                        />
                       )}
-                      <span className="text-xs font-medium px-2 py-1 bg-gray-100 text-gray-700 rounded">
-                        {chapter.exercises} ex
+                      <span
+                        className={`text-xs font-semibold px-2 py-1 rounded-lg transition-all ${
+                          currentChapter === index
+                            ? "bg-white/20 text-white"
+                            : "bg-gray-200/70 text-gray-700"
+                        }`}
+                      >
+                        {chapter.exercises}
                       </span>
                     </div>
                   </div>
                 </button>
               ))}
-            </div>
-
-            {/* Course Progress */}
-            <div className="mt-8 p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-700">Course Progress</span>
-                <span className="text-sm font-bold text-indigo-600">{selectedCourse.completionRate}%</span>
-              </div>
-              <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-500"
-                  style={{ width: `${selectedCourse.completionRate}%` }}
-                />
-              </div>
             </div>
           </div>
         )}
@@ -691,11 +769,16 @@ function CourseViewer() {
                   <div className="flex items-center gap-4 mt-2">
                     <div className="flex items-center gap-2 text-gray-600">
                       <Clock className="h-4 w-4" />
-                      <span>{selectedCourse.chapters[currentChapter].duration}</span>
+                      <span>
+                        {selectedCourse.chapters[currentChapter].duration}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2 text-gray-600">
                       <FileText className="h-4 w-4" />
-                      <span>{selectedCourse.chapters[currentChapter].exercises} exercises</span>
+                      <span>
+                        {selectedCourse.chapters[currentChapter].exercises}{" "}
+                        exercises
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -706,7 +789,10 @@ function CourseViewer() {
                         onClick={() =>
                           downloadPdf(
                             selectedCourse.chapters[currentChapter].pdfUrl,
-                            getPdfFilename(selectedCourse, selectedCourse.chapters[currentChapter])
+                            getPdfFilename(
+                              selectedCourse,
+                              selectedCourse.chapters[currentChapter]
+                            )
                           )
                         }
                         className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-5 py-2.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
@@ -768,7 +854,14 @@ function CourseViewer() {
               Previous Chapter
             </button>
             <button
-              onClick={() => setCurrentChapter(Math.min(selectedCourse.chapters.length - 1, currentChapter + 1))}
+              onClick={() =>
+                setCurrentChapter(
+                  Math.min(
+                    selectedCourse.chapters.length - 1,
+                    currentChapter + 1
+                  )
+                )
+              }
               disabled={currentChapter === selectedCourse.chapters.length - 1}
               className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
                 currentChapter === selectedCourse.chapters.length - 1
@@ -782,10 +875,9 @@ function CourseViewer() {
           </div>
         </div>
       </div>
-    <div className="fixed bottom-6 right-6 z-40">
-          <ChatBot className="flex justify-end items-end" />
-        </div>
-  
+
+      {/* ChatBot - Only shows when viewing a course */}
+      <ChatBot theme="courses" />
     </div>
   );
 }

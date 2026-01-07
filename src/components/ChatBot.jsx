@@ -12,8 +12,77 @@ import {
   Volume2
 } from "lucide-react";
 
-const AIChatModal = () => {
+// Theme configurations for different tabs
+const themeConfigs = {
+  courses: {
+    gradient: "from-indigo-500 to-purple-600",
+    gradientHover: "from-indigo-600 to-purple-700",
+    headerGradient: "from-indigo-900/50 to-purple-900/50",
+    shadow: "shadow-purple-500/50",
+    shadowHover: "shadow-purple-600/60",
+    ring: "border-indigo-300",
+    accent: "text-purple-400",
+    userBubble: "from-indigo-500 to-purple-600",
+    userIcon: "bg-indigo-400",
+    aiIcon: "bg-purple-500",
+    focusBorder: "focus:border-purple-500",
+    focusRing: "focus:ring-purple-500/20",
+    scrollThumb: "#4f46e5",
+    scrollThumbHover: "#6366f1"
+  },
+  exercises: {
+    gradient: "from-green-500 to-emerald-600",
+    gradientHover: "from-green-600 to-emerald-700",
+    headerGradient: "from-green-900/50 to-emerald-900/50",
+    shadow: "shadow-green-500/50",
+    shadowHover: "shadow-green-600/60",
+    ring: "border-green-300",
+    accent: "text-emerald-400",
+    userBubble: "from-green-500 to-emerald-600",
+    userIcon: "bg-green-400",
+    aiIcon: "bg-emerald-500",
+    focusBorder: "focus:border-emerald-500",
+    focusRing: "focus:ring-emerald-500/20",
+    scrollThumb: "#10b981",
+    scrollThumbHover: "#34d399"
+  },
+  "past-exams": {
+    gradient: "from-amber-500 to-orange-600",
+    gradientHover: "from-amber-600 to-orange-700",
+    headerGradient: "from-amber-900/50 to-orange-900/50",
+    shadow: "shadow-amber-500/50",
+    shadowHover: "shadow-amber-600/60",
+    ring: "border-amber-300",
+    accent: "text-orange-400",
+    userBubble: "from-amber-500 to-orange-600",
+    userIcon: "bg-amber-400",
+    aiIcon: "bg-orange-500",
+    focusBorder: "focus:border-orange-500",
+    focusRing: "focus:ring-orange-500/20",
+    scrollThumb: "#f59e0b",
+    scrollThumbHover: "#fbbf24"
+  },
+  progress: {
+    gradient: "from-blue-500 to-cyan-600",
+    gradientHover: "from-blue-600 to-cyan-700",
+    headerGradient: "from-blue-900/50 to-cyan-900/50",
+    shadow: "shadow-blue-500/50",
+    shadowHover: "shadow-blue-600/60",
+    ring: "border-blue-300",
+    accent: "text-cyan-400",
+    userBubble: "from-blue-500 to-cyan-600",
+    userIcon: "bg-blue-400",
+    aiIcon: "bg-cyan-500",
+    focusBorder: "focus:border-cyan-500",
+    focusRing: "focus:ring-cyan-500/20",
+    scrollThumb: "#0ea5e9",
+    scrollThumbHover: "#38bdf8"
+  }
+};
+
+const AIChatModal = ({ theme = "courses" }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const currentTheme = themeConfigs[theme] || themeConfigs.courses;
   const [messages, setMessages] = useState([
     { id: 1, text: "Hello! I'm your AI assistant. How can I help you today?", sender: "ai", timestamp: new Date() }
   ]);
@@ -98,10 +167,10 @@ const AIChatModal = () => {
       {/* Floating Chat Button - Fixed at bottom right */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-20 h-20 rounded-full bg-gradient-to-br
-         from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-2xl 
-         shadow-purple-500/50 hover:shadow-purple-600/60 transform hover:scale-105 transition-all duration-300 flex 
-         flex-col items-center justify-center z-40 group"
+        className={`fixed bottom-6 right-6 w-20 h-20 rounded-full bg-gradient-to-br
+         ${currentTheme.gradient} hover:${currentTheme.gradientHover} text-white shadow-2xl 
+         ${currentTheme.shadow} hover:${currentTheme.shadowHover} transform hover:scale-105 transition-all duration-300 flex 
+         flex-col items-center justify-center z-40 group`}
         aria-label="Open AI Assistant"
       >
         <div className="relative">
@@ -110,7 +179,7 @@ const AIChatModal = () => {
         </div>
         
         {/* Pulsing ring effect */}
-        <div className="absolute inset-0 rounded-full border-2 border-indigo-300 animate-ping opacity-20"></div>
+        <div className={`absolute inset-0 rounded-full border-2 ${currentTheme.ring} animate-ping opacity-20`}></div>
       </button>
 
       {/* Modal Backdrop */}
@@ -125,10 +194,10 @@ const AIChatModal = () => {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 bg-gradient-to-r from-indigo-900/50 to-purple-900/50 border-b border-gray-700">
+            <div className={`flex items-center justify-between p-6 bg-gradient-to-r ${currentTheme.headerGradient} border-b border-gray-700`}>
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                  <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${currentTheme.gradient} flex items-center justify-center`}>
                     <Bot size={24} className="text-white" />
                   </div>
                   <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-gray-900"></div>
@@ -151,7 +220,7 @@ const AIChatModal = () => {
             </div>
 
             {/* Messages Container */}
-            <div className="h-[calc(100%-200px)] overflow-y-auto p-4 space-y-4 custom-scrollbar">
+            <div className="h-[calc(100%-200px)] overflow-y-auto p-4 space-y-4 custom-scrollbar" style={{ '--scroll-thumb': currentTheme.scrollThumb, '--scroll-thumb-hover': currentTheme.scrollThumbHover }}>
               {messages.map((message) => (
                 <div
                   key={message.id}
@@ -160,12 +229,12 @@ const AIChatModal = () => {
                   <div
                     className={`max-w-[80%] rounded-2xl p-4 ${
                       message.sender === "user"
-                        ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-br-none"
+                        ? `bg-gradient-to-r ${currentTheme.userBubble} text-white rounded-br-none`
                         : "bg-gray-800/70 text-gray-100 rounded-bl-none border border-gray-700"
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <div className={`p-1 rounded-full ${message.sender === "user" ? "bg-indigo-400" : "bg-purple-500"}`}>
+                      <div className={`p-1 rounded-full ${message.sender === "user" ? currentTheme.userIcon : currentTheme.aiIcon}`}>
                         {message.sender === "user" ? <User size={12} /> : <Bot size={12} />}
                       </div>
                       <span className="text-sm font-medium">
@@ -199,7 +268,7 @@ const AIChatModal = () => {
                 <div className="flex justify-start animate-fadeInUp">
                   <div className="max-w-[80%] rounded-2xl p-4 bg-gray-800/70 text-gray-100 rounded-bl-none border border-gray-700">
                     <div className="flex items-center gap-3">
-                      <Loader2 size={20} className="animate-spin text-purple-400" />
+                      <Loader2 size={20} className={`animate-spin ${currentTheme.accent}`} />
                       <span className="text-sm">AI is thinking...</span>
                     </div>
                   </div>
@@ -220,7 +289,7 @@ const AIChatModal = () => {
                     onChange={(e) => setInputText(e.target.value)}
                     onKeyDown={handleKeyPress}
                     placeholder="Ask me anything..."
-                    className="w-full bg-gray-800/70 text-white placeholder-gray-400 rounded-xl pl-4 pr-12 py-3 border border-gray-700 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none resize-none custom-scrollbar"
+                    className={`w-full bg-gray-800/70 text-white placeholder-gray-400 rounded-xl pl-4 pr-12 py-3 border border-gray-700 ${currentTheme.focusBorder} focus:ring-2 ${currentTheme.focusRing} focus:outline-none resize-none custom-scrollbar`}
                     rows="1"
                     disabled={isLoading}
                     style={{ minHeight: "50px", maxHeight: "120px" }}
@@ -230,7 +299,7 @@ const AIChatModal = () => {
                     disabled={!inputText.trim() || isLoading}
                     className={`absolute right-3 p-2 rounded-full transition-all ${
                       inputText.trim() && !isLoading
-                        ? "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white transform hover:scale-105"
+                        ? `bg-gradient-to-r ${currentTheme.gradient} hover:${currentTheme.gradientHover} text-white transform hover:scale-105`
                         : "bg-gray-700 text-gray-500 cursor-not-allowed"
                     }`}
                     aria-label="Send message"
@@ -301,7 +370,7 @@ const AIChatModal = () => {
         
         .custom-scrollbar {
           scrollbar-width: thin;
-          scrollbar-color: #4f46e5 #1f2937;
+          scrollbar-color: var(--scroll-thumb, ${currentTheme.scrollThumb}) #1f2937;
         }
         
         .custom-scrollbar::-webkit-scrollbar {
@@ -314,12 +383,12 @@ const AIChatModal = () => {
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #4f46e5;
+          background: var(--scroll-thumb, ${currentTheme.scrollThumb});
           border-radius: 3px;
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #6366f1;
+          background: var(--scroll-thumb-hover, ${currentTheme.scrollThumbHover});
         }
       `}</style>
     </>

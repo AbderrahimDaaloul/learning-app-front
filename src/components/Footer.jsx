@@ -1,38 +1,22 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
-
 import {
-  BookOpen,
-  Video,
-  FileText,
-  MessageSquare,
-  Trophy,
-  Users,
-  Star,
-  Menu,
-  X,
-  ChevronRight,
-  Play,
-  Download,
   Brain,
-  Globe,
-  CheckCircle,
-  ArrowRight,
-  Zap,
   Shield,
-  Clock,
+  Twitter,
+  Github,
+  Linkedin,
+  ArrowUpRight,
 } from "lucide-react";
 
-// Footer Component
 const Footer = () => {
   const footerSections = [
-   
     {
-      title: "Features",
+      title: "Platform",
       links: [
         "PDF Materials",
         "Video Content",
-        "Exercise Corrections",
+        "Exercise Bank",
         "Past Exams",
         "Self Assessment",
       ],
@@ -54,64 +38,80 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-t border-gray-700">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+    <footer className="bg-[#030014] border-t border-white/5 relative overflow-hidden">
+      {/* Background Accent Glow */}
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/5 blur-[120px] -z-0"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-16 justify-items-center place-content-center">
           {/* Brand Section */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg">
+          <div className="lg:col-span-2 space-y-6 flex flex-col items-center">
+            <div className="flex items-center space-x-3 justify-center">
+              <div className="p-2.5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl shadow-lg shadow-blue-500/20">
                 <Brain className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="text-2xl font-black text-white tracking-tight">
                 EduPlatform
               </span>
             </div>
-            <p className="text-gray-400 mb-6 max-w-md">
-              Transform your learning journey with our comprehensive platform
-              featuring AI-powered assistance, detailed courses, and interactive
-              exercises designed for academic excellence.
+
+            <p className="text-slate-400 text-sm leading-relaxed max-w-sm text-center">
+              The ultimate AI-powered ecosystem for Baccalaureate students.
+              Bridging the gap between traditional learning and future
+              technology.
             </p>
-            <div className="flex space-x-4">
-              <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-full font-semibold transition-all transform hover:scale-105">
-                Start Learning Now
-              </button>
+
+            <div className="flex items-center gap-4 justify-center">
+              {[Twitter, Github, Linkedin].map((Icon, i) => (
+                <Link
+                  key={i}
+                  to="#"
+                  className="p-2 rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all"
+                >
+                  <Icon className="h-5 w-5" />
+                </Link>
+              ))}
             </div>
           </div>
 
           {/* Footer Links */}
           {footerSections.map((section) => (
-            <div key={section.title}>
-              <h3 className="text-white font-semibold mb-4">{section.title}</h3>
-              <ul className="space-y-2">
+            <div key={section.title} className="lg:col-span-1 flex flex-col items-center">
+              <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-6">
+                {section.title}
+              </h3>
+              <ul className="space-y-4">
                 {section.links.map((link) => (
                   <li key={link}>
                     <Link
                       to="#"
-                      className="text-gray-400 hover:text-white transition-colors"
+                      className="group flex items-center justify-center text-slate-400 hover:text-white transition-all text-sm"
                     >
-                      {link}
+                      <span>{link}</span>
+                      <ArrowUpRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
+
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">
-            © 2025 EduPlatform. All rights reserved.
-          </p>
-          <div className="flex items-center space-x-6 mt-4 md:mt-0">
-            {/* <div className="flex items-center space-x-2 text-gray-400">
-              <Globe className="h-4 w-4" />
-              <span className="text-sm">Available in multiple languages</span>
-            </div> */}
-            <div className="flex items-center space-x-2 text-gray-400">
-              <Shield className="h-4 w-4" />
-              <span className="text-sm">Secure & Private</span>
+        <div className="pt-8 border-t border-white/5 flex flex-col items-center justify-center gap-6">
+          <div className="flex flex-col items-center gap-4">
+            <p className="text-slate-500 text-xs font-medium">
+              © 2026 EduPlatform. All rights reserved.
+            </p>
+            <div className="flex items-center gap-4">
+              <Link to="#" className="text-xs text-slate-500 hover:text-white">
+                Privacy
+              </Link>
+              <Link to="#" className="text-xs text-slate-500 hover:text-white">
+                Terms
+              </Link>
+              
             </div>
           </div>
         </div>
@@ -119,4 +119,5 @@ const Footer = () => {
     </footer>
   );
 };
-export default Footer;  
+
+export default Footer;

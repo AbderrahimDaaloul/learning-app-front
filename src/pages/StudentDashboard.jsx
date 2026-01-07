@@ -4,7 +4,6 @@ import CourseViewer from "../components/CourseViewer";
 import ExerciseViewer from "../components/ExerciseViewer";
 import PastExamsViewer from "../components/PastExamsViewer";
 import ProgressTracker from "../components/ProgressTracker";
-import AIChatModal from "../components/ChatBot";
 import { 
   BookOpen, 
   FileText, 
@@ -28,7 +27,7 @@ export default function StudentDashboard() {
       id: "courses", 
       label: "My Courses", 
       icon: BookOpen, 
-      color: "from-amber-500 to-orange-500",
+      color: " from-indigo-700 to-purple-700 ",
       description: "Access your courses"
     },
     { 
@@ -42,7 +41,7 @@ export default function StudentDashboard() {
       id: "past-exams", 
       label: "Past Exams", 
       icon: Award, 
-      color: "from-purple-500 to-pink-500",
+      color: "from-amber-500 to-orange-500",
       description: "Previous exam papers"
     },
     { 
@@ -138,7 +137,7 @@ export default function StudentDashboard() {
   return (
     <div className="flex h-screen bg-gradient-to-br from-gray-50 to-indigo-50/30">
       {/* Enhanced Sidebar */}
-      <div className={`flex flex-col transition-all duration-300  w-80 bg-gradient-to-b from-white via-white to-gray-50/50 border-r border-gray-200/50 backdrop-blur-sm`}>
+      <div className={`flex flex-col transition-all duration-300  w-64 bg-gradient-to-b from-white via-white to-gray-50/50 border-r border-gray-200/50 backdrop-blur-sm`}>
        
        
 
@@ -192,9 +191,6 @@ export default function StudentDashboard() {
           </div>
         </div>
       </div>
-
-      {/* AI Chat Modal */}
-{/*       <AIChatModal />
- */}    </div>
+    </div>
   );
 }
